@@ -6,6 +6,7 @@ static decrypt_func_01(addr)
 	auto count;
 	auto actual;
 
+	Message("Addr = %X : ", addr);
 	key = 0x522CFDD0;
 	count = 0;
 	while (1)
