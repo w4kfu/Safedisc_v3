@@ -18,11 +18,11 @@ static GetAddrStr(value)
 	return (start);
 }
 
-static decrypt_str(ref, str)
+static decrypt_str(ref, str, vale)
 {
 	auto val;
 	
-	Message("Decyph (ref = %08X) : ", ref);
+	Message("Decyph (ref = %08X ; val = %X) : ", ref, vale);
 	Message("%c", Byte(str));
 	val = Byte(str);
 	str = str + 1;
@@ -41,6 +41,7 @@ static main()
 	auto ref;
 	auto push;
 	auto str;
+	auto vale;
 	
 	for (ref = RfirstB(sub_addr); ref != BADADDR; ref = RnextB(sub_addr, ref))
 	{
@@ -48,9 +49,10 @@ static main()
 		{
 			if (GetMnem(push) == "push")
 			{
+				vale = GetOperandValue(push, 0);
 				str = GetAddrStr(GetOperandValue(push, 0));
 				if (str)
-					decrypt_str(ref, str);
+					decrypt_str(ref, str, vale);
 				break;
 			}
 		}
